@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/web/index.html</file>
+            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/web/panlay.html</file>
+            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/src/java/model/admin/Item.java</file>
+            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/web/Shop.jsp</file>
+            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/src/java/controller/admin/GetProductDetails.java</file>
             <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/src/java/controller/login/Login.java</file>
-            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/web/register.jsp</file>
+            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/web/admin.jsp</file>
             <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/src/java/model/account/ManageAccount.java</file>
-            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/src/java/model/account/Account.java</file>
+            <file>file:/C:/Users/megha_000/Documents/NetBeansProjects/EasyBuy/src/java/service/ProductAdminService/ProductManager.java</file>
         </group>
     </open-files>
 </project-private>

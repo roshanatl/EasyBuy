@@ -22,7 +22,7 @@ public class ManageAccount {
         config.addAnnotatedClass(Account.class);
         config.configure("hibernate.cfg.xml");
         // Creates a table
-        // new SchemaExport(config).create(true, true);
+        new SchemaExport(config).create(true, true);
         SessionFactory factory = config.buildSessionFactory();
         Session session = factory.openSession();
         session.beginTransaction();

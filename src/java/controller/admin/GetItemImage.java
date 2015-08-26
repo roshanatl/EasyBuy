@@ -3,25 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.login;
+package controller.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.account.Account;
-import model.account.ManageAccount;
+import model.admin.Item;
+import service.ProductAdminService.ProductManager;
 
 /**
  *
  * @author megha_000
  */
-@WebServlet(name = "Login", urlPatterns = {"/login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "GetItemImage", urlPatterns = {"/GetItemImage"})
+public class GetItemImage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,37 +33,18 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userName = request.getParameter("Name");
-        String passWord = request.getParameter("Pass");
-        boolean loggedIN = false;
-        Account user=ManageAccount.getAccountByEmail(userName);
-        
-        if ( passWord.equals(user.getPassword())) {
-            loggedIN = true;
-        }
-        if (loggedIN == true) {
-            
-            String nextJSP = "/Shop.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-            dispatcher.forward(request, response);
-        
-//            response.setContentType("text/html;charset=UTF-8");
-//            try (PrintWriter out = response.getWriter()) {
-//                /* TODO output your page here. You may use following sample code. */
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Servlet Login</title>");
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>Welcome " + userName + "</h1>");
-//                out.println("</body>");
-//                out.println("</html>");
-            }
-        else{
-             String nextJSP = "/index.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-            dispatcher.forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet GetItemImage</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet GetItemImage at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -80,7 +60,13 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);        
+        Item myProduct = ProductManager.getProductByID(Integer.parseInt(request.getParameter("id")));
+        byte[] rb = myProduct.getProductImage();
+        response.reset();
+        response.setContentType("image/jpg");
+        response.getOutputStream().write(rb, 0, rb.length);
+        response.getOutputStream().flush();
     }
 
     /**
