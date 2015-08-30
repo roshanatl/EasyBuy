@@ -44,7 +44,7 @@ public class Login extends HttpServlet {
         }
         if (loggedIN == true) {
             
-            String nextJSP = "/Shop.jsp";
+            String nextJSP = "/MyShop.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
             dispatcher.forward(request, response);
         
