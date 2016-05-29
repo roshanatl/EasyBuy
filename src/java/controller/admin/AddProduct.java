@@ -16,8 +16,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import model.admin.Item;
+import model.User.Account;
+import model.Store.Item;
 import service.ProductAdminService.ProductManager;
 
 /**
@@ -25,9 +27,9 @@ import service.ProductAdminService.ProductManager;
  * @author megha_000
  */
 @WebServlet(name = "AddProduct", urlPatterns = {"/AddProduct"})
-@MultipartConfig(fileSizeThreshold=1024*1024*10,    // 10 MB 
-                 maxFileSize=1024*1024*50,          // 50 MB
-                 maxRequestSize=1024*1024*100)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB 
+        maxFileSize = 1024 * 1024 * 50, // 50 MB
+        maxRequestSize = 1024 * 1024 * 100)
 public class AddProduct extends HttpServlet {
 
     /**
@@ -41,11 +43,26 @@ public class AddProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Item myProduct=new Item();
+        HttpSession session = request.getSession(false);
+        Account myUser = null;
+        if (session != null) {
+            myUser = (Account) session.getAttribute("myUser");
+            if (myUser == null) {
+                
+                String error = "Please login add an Item!!";
+                request.setAttribute("message", error);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+
+            }
+            else
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+        }
+        Item myProduct = new Item();
         myProduct.setProductName(request.getParameter("itemname"));
         myProduct.setProductDetails(request.getParameter("itemdetails"));
         myProduct.setProductQuantity(Integer.parseInt(request.getParameter("itemquantity")));
         myProduct.setPrice(Double.parseDouble(request.getParameter("itemprice")));
+        myProduct.setSellerID(myUser.getAccount_id());
         InputStream inputStream = null;
         Part filePart = request.getPart("itempic");
         if (filePart != null) {
@@ -53,38 +70,26 @@ public class AddProduct extends HttpServlet {
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
             System.out.println(filePart.getContentType());
-             
+
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
             byte[] targetArray = new byte[inputStream.available()];
             inputStream.read(targetArray);
             myProduct.setProductImage(targetArray);
-           
-        }         
+
+        }
         //File file = new File(request.getPart("itempic"));
         //Part filePart = request.getPart("itempic"); 
         //byte[] bFile = new byte[(int) file.length()];
         //FileInputStream fileInputStream = new FileInputStream(file);     
-        ProductManager.addProduct(myProduct);        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddProduct</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Product Added  " + myProduct + "</h1>");
-//            response.reset();            
-//            response.setContentType("image/jpg");
-//            response.getOutputStream().write(bFile, 0, (int) file.length());
-//            response.getOutputStream().flush();
-//            response.reset();
-            response.setContentType("text/html;charset=UTF-8");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        ProductManager.addProduct(myProduct);
+
+        String message = "Item  added  Succesfully !! ";
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -99,7 +104,24 @@ public class AddProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            Account myUser = (Account) session.getAttribute("myUser");
+            if (myUser == null) {
+                
+                String error = "Please login add an Item!!";
+                request.setAttribute("message", error);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+
+            }
+            else
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+        }
+        else
+        {
+            request.getRequestDispatcher("login.html").forward(request, response);
+        }
+       
     }
 
     /**

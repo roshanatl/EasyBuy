@@ -9,12 +9,14 @@ package service.ProductAdminService;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import model.admin.Item;
+import javax.inject.Inject;
+import model.Store.Item;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import util.ORM.HibernateSession;
 
 
 /**
@@ -22,56 +24,34 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
  * @author megha_000
  */
 public class ProductManager {
+    @Inject
+    static HibernateSession hibFactory;
     
     public static void addProduct(Item newProduct)
     {
-        Configuration config = new Configuration();
-        config.addAnnotatedClass(Item.class);
-        config.configure("hibernate.cfg.xml");
-        // Creates a table
-        //new SchemaExport(config).create(true, true);
-        SessionFactory factory = config.buildSessionFactory();
-        Session session = factory.openSession();
+        Session session = hibFactory.getsessionFactory().openSession();
         session.beginTransaction();
         session.save(newProduct);
         session.getTransaction().commit();
-        session.close();
-        
-    }
-    
+        session.close();        
+    }    
     public static Item getProductByID (int productId)
     {
-        Configuration config = new Configuration();
-        config.addAnnotatedClass(Item.class);
-        config.configure("hibernate.cfg.xml");
-        // Creates a table
-        // new SchemaExport(config).create(true, true);
-        SessionFactory factory = config.buildSessionFactory();
-        Session session = factory.openSession();
-        session.beginTransaction();
+        Session session = hibFactory.getsessionFactory().openSession();
         Item myProduct = null;
         String queryString = "from Item where productId = :productId";
         Query query = session.createQuery(queryString);
         query.setInteger("productId", productId);
         Object queryResult = query.uniqueResult();
         myProduct = (Item) queryResult;
-        session.getTransaction().commit();
         session.close();
-        return myProduct;
-        
+        return myProduct;        
     }
     
     public static List<Item> getAllProducts ()
     {
         List<Item> items=new LinkedList<>();
-        Configuration config = new Configuration();
-        config.addAnnotatedClass(Item.class);
-        config.configure("hibernate.cfg.xml");
-        // Creates a table
-        // new SchemaExport(config).create(true, true);
-        SessionFactory factory = config.buildSessionFactory();
-        Session session = factory.openSession();
-        
+        Session session = hibFactory.getsessionFactory().openSession();
         Item myProduct = null;
         String queryString = "from Item where productQuantity >0 ";
         Query query = session.createQuery(queryString);
@@ -81,13 +61,9 @@ public class ProductManager {
             Object each = it.next();
             myProduct = (Item) each;
             items.add(myProduct);
-        }
-        
+        }        
         session.close();
         return items;
         
-    }
-    
-    
-    
+    } 
 }

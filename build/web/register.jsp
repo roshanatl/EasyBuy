@@ -32,7 +32,7 @@
                                 <div class="col-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                        <input type="name"  name="name" class="form-control" id="inputfn3" placeholder="Full Name">
+                                        <input type="text"  name="name" class="form-control" id="inputfn3" placeholder="Full Name" required >
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                 <div class="col-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="email" name ="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                        <input type="email" name ="email" class="form-control" id="inputEmail3" placeholder="Email" required>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                 <div class="col-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
-                                        <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password">
+                                        <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password" required >
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                 <div class="col-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
-                                        <input type="address" name="address" class="form-control" id="inputfn3" placeholder="Address ">
+                                        <input type="text" name="address" class="form-control" id="inputfn3" placeholder="Address " required >
                                     </div>
                                 </div>
                             </div>
@@ -68,14 +68,14 @@
                                 <div class="col-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-                                        <input type="phone" name ="phone" class="form-control" id="inputfn3" placeholder="Phone">
+                                        <input type="text" name ="phone" class="form-control" id="inputfn3" placeholder="Phone" required >
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-primary">Register</button>
-                                    <button type="button" onclick= "location.href='index.html'" class="btn btn-success">Back to Login</button>
+                                    <button type="button" onclick= "location.href='login.jsp'" class="btn btn-success">Back to Login</button>
                                 </div>
                             </div>
 

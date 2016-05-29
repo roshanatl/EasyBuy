@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.admin.Item;
+import model.Store.Item;
 import service.ProductAdminService.ProductManager;
 
 /**
@@ -108,7 +108,7 @@ public class GetProductDetails extends HttpServlet {
             out.println("<p> Details :"+myProduct.getProductDetails()+ "</p>");
             out.println("<p> Price :"+myProduct.getPrice()+ " Rs.</p>");
             out.println("<p> Quatity Available :"+myProduct.getProductQuantity()+ "</p>");
-            out.println("<form action=\"Shop.jsp\" method=\"post\">");
+            out.println("<form action=\"index.jsp\" method=\"post\">");
             out.println("<input type=\"submit\" class=\"btn btn-success\" value=\"Go Back\"");
             out.println("</body>");
             out.println("</html>");
